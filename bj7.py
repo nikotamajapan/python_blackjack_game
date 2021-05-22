@@ -21,8 +21,8 @@
 
 
 import random
-# import time
-# from time import sleep
+import time
+from time import sleep
 
 
 class Card():
@@ -164,7 +164,9 @@ class Game():
                 dealer_hand.add_card(deck.deal())
 
             print()
+            time.sleep(1.5)
             print(f"game_number {game_number} / {game_to_play}")
+            sleep(1)
             print()
 
             player_hand.show()
@@ -172,15 +174,33 @@ class Game():
 
             if self.check_winner(player_hand, dealer_hand):
                 continue
-            
-            print('1 hit or stand')
+
+            choice = ''
+            while choice not in ('s', 'stand') and player_hand.calc_value() < 21:
+                choice = input('hit or stand (H/S):  ').lower()
+                print()
+                while choice not in ['h', 's', 'hit', 'stand']:
+                    choice = input('H? S?').lower()
+                    print()
+                if choice in ['hit', 'h']:
+                    player_hand.add_card(deck.deal())
+                    player_hand.show()
+                    
 
             if self.check_winner(player_hand, dealer_hand):
                 continue
-            print('2 draw card until 17')
+ 
+            while dealer_hand.calc_value() < 17:
+                dealer_hand.add_card(deck.deal())
+                dealer_hand.calc_value()
+                dealer_hand.show(show_two_cards=True)
+
             if self.check_winner(player_hand, dealer_hand, game_over=True):
                 continue
             print('3 result ')
+
+            print('your hand: ', player_hand.calc_value())
+            print('dealer hand: ', dealer_hand.calc_value())
 
             self.check_winner(player_hand, dealer_hand, game_over=True)
 
