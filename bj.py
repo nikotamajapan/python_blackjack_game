@@ -70,38 +70,35 @@ def result(dealer_hand, player_hand):
     elif total(player_hand) < total(dealer_hand):
         print(f"dealer {total(dealer_hand)} / you {total(player_hand)} lose ...")
 
+
 def game():
     dealer_hand = deal()
     player_hand = deal()
     print(f"dealer_hand -> {dealer_hand[0]}")
     print(f"player_hand -> {player_hand} >> {total(player_hand)}")
     
-
     choice = 0
 
     while choice != quit:
         choice = input("hit or stand :").lower()
         if choice == "hit":
             hit(player_hand)
-            # print(a
-            #     f"your {player_hand[-1]} add to {player_hand} total {total(player_hand)} ")
-            print(f" your {player_hand[-1]} add to {player_hand} total {total(player_hand)} " )
+            print(f" your {player_hand[-1]} add to {player_hand} total {total(player_hand)} ")
             if total(player_hand) > 21:
                 print("over 21 you lose ...")
                 choice = quit
-
         elif choice == "stand":
-            print(f" dealer2 {dealer_hand[1]} total {total(dealer_hand)} " )
+            print(f" dealer-2 {dealer_hand[1]} total {total(dealer_hand)} ")
             while total(dealer_hand) < 17:
                 hit(dealer_hand)
-                print(f" dealer {dealer_hand[-1]} add to {dealer_hand} total {total(dealer_hand)} " )
+                print(f" dealer {dealer_hand[-1]} add to {dealer_hand} total {total(dealer_hand)} ")
                 if total(dealer_hand) > 21:
                     print("over 21 you WIN !")
                     choice = quit
+            
+            result()
             choice = quit
 
 
 game()
-
-
 
